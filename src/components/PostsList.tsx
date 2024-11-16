@@ -1,6 +1,6 @@
 import React from 'react';
 import { Post } from '../types/Post';
-import classNames from 'classnames';
+import { PostItem } from './PostItem';
 
 type Props = {
   posts: Post[];
@@ -28,30 +28,12 @@ export const PostsList: React.FC<Props> = ({
         </thead>
         <tbody>
           {posts.map(post => (
-            <tr data-cy="Post" key={post.id}>
-              <td data-cy="PostId">{post.id}</td>
-
-              <td data-cy="PostTitle">{post.title}</td>
-
-              <td className="has-text-right is-vcentered">
-                <button
-                  type="button"
-                  data-cy="PostButton"
-                  className={classNames('button is-link', {
-                    'is-light': !(selectedPost?.id === post.id),
-                  })}
-                  onClick={() => {
-                    if (selectedPost?.id === post.id) {
-                      setSelectedPost(null);
-                    } else {
-                      setSelectedPost(post);
-                    }
-                  }}
-                >
-                  {selectedPost?.id === post.id ? 'Close' : 'Open'}
-                </button>
-              </td>
-            </tr>
+            <PostItem
+              post={post}
+              key={post.id}
+              selectedPost={selectedPost}
+              setSelectedPost={setSelectedPost}
+            />
           ))}
         </tbody>
       </table>

@@ -24,7 +24,7 @@ export const App = () => {
   const [selectedPost, setSelectedPost] = useState<Post | null>(null);
 
   useEffect(() => {
-    getUsers().then(fetchedUsers => setUsers(fetchedUsers));
+    getUsers().then(setUsers);
   }, []);
 
   const handleOpenPosts = (userId: number) => {
@@ -53,7 +53,7 @@ export const App = () => {
   }, [selectedUser]);
 
   const isPostEmpty =
-    selectedUser && !loading && posts.length === 0 && !error && postsFetched;
+    selectedUser && !loading && !posts.length && !error && postsFetched;
 
   return (
     <main className="section">
@@ -91,7 +91,7 @@ export const App = () => {
                   </div>
                 )}
 
-                {!error && selectedUser && posts.length > 0 && !loading && (
+                {!error && selectedUser && !!posts.length && !loading && (
                   <PostsList
                     posts={posts}
                     selectedPost={selectedPost}
